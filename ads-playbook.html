@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMC Ads Command Center</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0e17;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #1e3a5f;
+  }
+  .header h1 {
+    font-size: 2.2rem;
+    color: #f97316;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .header p {
+    color: #64748b;
+    font-size: 1rem;
+  }
+  .header .account-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.4rem 1.2rem;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  /* Status Bar */
+  .status-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .status-card {
+    background: #111827;
+    border: 1px solid #1e3a5f;
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .status-card .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+  .status-card .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f97316;
+  }
+  .status-card .value.green { color: #22c55e; }
+  .status-card .value.yellow { color: #eab308; }
+  .status-card .value.red { color: #ef4444; }
+
+  /* Campaign Cards */
+  .campaigns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .campaign-card {
+    background: #111827;
+    border: 1px solid #1e3a5f;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .campaign-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e293b;
+  }
+  .campaign-header h2 {
+    font-size: 1.3rem;
+    color: #f8fafc;
+  }
+  .badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge.paused { background: #422006; color: #f97316; }
+  .badge.live { background: #052e16; color: #22c55e; animation: pulse 2s infinite; }
+  .badge.todo { background: #1e1b4b; color: #818cf8; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .campaign-body { padding: 1.5rem; }
+  .campaign-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .meta-item .meta-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+  }
+  .meta-item .meta-value {
+    font-size: 1rem;
+    color: #e2e8f0;
+    margin-top: 0.2rem;
+  }
+
+  /* Steps */
+  .steps-section {
+    margin-bottom: 3rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    color: #f97316;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-subtitle {
+    color: #64748b;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .step {
+    background: #111827;
+    border: 1px solid #1e3a5f;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .step-header {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .step-header:hover { background: #1e293b; }
+  .step-number {
+    width: 32px;
+    height: 32px;
+    background: #f97316;
+    color: #0a0e17;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .step-number.done { background: #22c55e; }
+  .step-title { font-size: 1rem; font-weight: 600; }
+  .step-arrow {
+    margin-left: auto;
+    transition: transform 0.2s;
+    color: #64748b;
+  }
+  .step.open .step-arrow { transform: rotate(180deg); }
+  .step-content {
+    display: none;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    padding-left: 4rem;
+  }
+  .step.open .step-content { display: block; }
+  .step-content p {
+    color: #94a3b8;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+
+  /* Copy blocks */
+  .copy-block {
+    background: #0a0e17;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.8rem 0;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .copy-block:hover {
+    border-color: #f97316;
+  }
+  .copy-block code {
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    display: block;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #1e3a5f;
+    color: #f97316;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .copy-btn:hover { background: #f97316; color: #0a0e17; }
+  .copy-btn.copied { background: #22c55e; color: #fff; }
+
+  .copy-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #f97316;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  /* Keyword tags */
+  .keyword-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+  }
+  .keyword-tag {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .keyword-tag:hover {
+    border-color: #f97316;
+    color: #f97316;
+  }
+
+  /* Performance section placeholder */
+  .performance-section {
+    background: #111827;
+    border: 1px solid #1e3a5f;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .performance-section h3 {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .performance-section p {
+    color: #475569;
+    font-size: 0.9rem;
+  }
+  .performance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .perf-placeholder {
+    background: #0a0e17;
+    border: 1px dashed #334155;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .perf-placeholder .perf-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #475569;
+  }
+  .perf-placeholder .perf-value {
+    font-size: 1.5rem;
+    color: #334155;
+    margin-top: 0.3rem;
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    margin: 1rem 0;
+  }
+  .checklist li {
+    padding: 0.5rem 0;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .checklist li .check {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #334155;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 0.7rem;
+  }
+  .checklist li.done .check {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #fff;
+  }
+  .checklist li.done { color: #64748b; text-decoration: line-through; }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid #1e293b;
+    margin: 2rem 0;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: #334155;
+    font-size: 0.8rem;
+    padding-top: 2rem;
+    border-top: 1px solid #1e293b;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .campaigns { grid-template-columns: 1fr; }
+    .campaign-meta { grid-template-columns: 1fr; }
+    .performance-grid { grid-template-columns: 1fr 1fr; }
+    body { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SMC ADS COMMAND CENTER</h1>
+  <p>Southern Machinist Company - Google Ads Playbook & Performance Tracker</p>
+  <div class="account-badge">Account: 158-975-7158 &bull; questfilmandmedia@gmail.com &bull; $10/day total budget</div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-card">
+    <div class="label">Total Campaigns</div>
+    <div class="value">2</div>
+  </div>
+  <div class="status-card">
+    <div class="label">Daily Budget</div>
+    <div class="value">$10</div>
+  </div>
+  <div class="status-card">
+    <div class="label">Quote Seekers</div>
+    <div class="value yellow">PAUSED</div>
+  </div>
+  <div class="status-card">
+    <div class="label">Apprentice Pipeline</div>
+    <div class="value red">NOT BUILT</div>
+  </div>
+</div>
+
+<!-- CAMPAIGN CARDS -->
+<div class="campaigns">
+
+  <!-- Campaign 1: Quote Seekers -->
+  <div class="campaign-card">
+    <div class="campaign-header">
+      <h2>SMC - Quote Seekers</h2>
+      <span class="badge paused">PAUSED</span>
+    </div>
+    <div class="campaign-body">
+      <div class="campaign-meta">
+        <div class="meta-item">
+          <div class="meta-label">Type</div>
+          <div class="meta-value">Performance Max</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Budget</div>
+          <div class="meta-value">$5.00/day</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Bidding</div>
+          <div class="meta-value">Max Conversions</div>
+        </div>
+      </div>
+      <div class="copy-label">Headlines</div>
+      <div class="keyword-list">
+        <span class="keyword-tag">Southern Machinist Company</span>
+        <span class="keyword-tag">Precision CNC Machining</span>
+        <span class="keyword-tag">Get a Free Quote Today</span>
+      </div>
+      <div class="copy-label">Long Headline</div>
+      <p style="color:#94a3b8;font-size:0.9rem;">Custom CNC Machining - 30+ Years Experience - Get Your Free Quote</p>
+      <div class="copy-label" style="margin-top:0.8rem;">Descriptions</div>
+      <p style="color:#94a3b8;font-size:0.85rem;">1. Precision CNC machining from blueprint to finished part. Aluminum, steel, titanium & more.</p>
+      <p style="color:#94a3b8;font-size:0.85rem;">2. Atlanta machine shop. 30+ years expertise. Prototypes & production runs. Now hiring.</p>
+      <div class="copy-label" style="margin-top:0.8rem;">Search Themes</div>
+      <div class="keyword-list">
+        <span class="keyword-tag">CNC machining near me</span>
+        <span class="keyword-tag">custom machined parts</span>
+        <span class="keyword-tag">precision machining services</span>
+        <span class="keyword-tag">CNC milling services</span>
+        <span class="keyword-tag">machine shop near me</span>
+        <span class="keyword-tag">custom metal parts</span>
+        <span class="keyword-tag">prototype machining</span>
+        <span class="keyword-tag">machinist apprenticeship Atlanta</span>
+      </div>
+
+      <hr class="divider">
+      <div class="copy-label">Status Checklist</div>
+      <ul class="checklist">
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Campaign created in Google Ads</li>
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Renamed to SMC - Quote Seekers</li>
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Ad copy loaded (3 headlines, 2 descriptions)</li>
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Images uploaded</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Unpause when ready to spend</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Monitor for 7 days, review search terms</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Campaign 2: Apprentice Pipeline -->
+  <div class="campaign-card">
+    <div class="campaign-header">
+      <h2>SMC - Apprentice Pipeline</h2>
+      <span class="badge todo">TO BUILD</span>
+    </div>
+    <div class="campaign-body">
+      <div class="campaign-meta">
+        <div class="meta-item">
+          <div class="meta-label">Type</div>
+          <div class="meta-value">Search</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Budget</div>
+          <div class="meta-value">$5.00/day</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Bidding</div>
+          <div class="meta-value">Max Conversions</div>
+        </div>
+      </div>
+      <div class="copy-label">Headlines (copy these)</div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Machinist Apprenticeship</code>
+      </div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Learn From 30yr Veterans</code>
+      </div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Apply Today - Limited Spots</code>
+      </div>
+
+      <div class="copy-label" style="margin-top:1rem;">Descriptions (copy these)</div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Start your career in precision machining. Hands-on training with experienced machinists. Apply now.</code>
+      </div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>No experience needed. Learn CNC milling, turning, and more. Atlanta-based apprenticeship program.</code>
+      </div>
+
+      <div class="copy-label" style="margin-top:1rem;">Keywords (paste all at once)</div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY ALL</button>
+        <code>"machinist apprenticeship"
+"CNC machinist training"
+"machine shop apprentice"
+"machinist career"
+"learn CNC machining"
+"trade school machining"
+"machinist jobs Atlanta"</code>
+      </div>
+
+      <div class="copy-label" style="margin-top:1rem;">Final URL</div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>https://southernmachinistcompany.com</code>
+      </div>
+
+      <hr class="divider">
+      <div class="copy-label">Status Checklist</div>
+      <ul class="checklist">
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Create new campaign in Google Ads</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Select goal: Leads > Submit lead form</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Campaign type: Search (uncheck Display Network)</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Name it: SMC - Apprentice Pipeline</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Set budget: $5/day</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Add keywords from above</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Paste ad copy (headlines + descriptions)</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Set final URL</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Publish (leave running)</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Monitor for 7 days, review search terms</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- STEP BY STEP GUIDE -->
+<div class="steps-section">
+  <div class="section-title">Step-by-Step: Build the Apprentice Pipeline Campaign</div>
+  <p class="section-subtitle">Follow these steps in Google Ads (ads.google.com). Click each step to expand.</p>
+
+  <div class="step open" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">1</span>
+      <span class="step-title">Start a New Campaign</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Go to <strong>ads.google.com</strong> and click the blue <strong>"+"</strong> button or <strong>"New Campaign"</strong>.</p>
+      <p>Select goal: <strong>Leads</strong></p>
+      <p>Select conversion goal: <strong>Submit lead form</strong></p>
+      <p>Campaign type: <strong>Search</strong> (NOT Performance Max - we want keyword control)</p>
+      <p>Uncheck <strong>"Include Google Display Network"</strong> to keep budget focused on search only.</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">2</span>
+      <span class="step-title">Name & Budget</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Campaign name:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>SMC - Apprentice Pipeline</code>
+      </div>
+      <p>Budget: <strong>$5.00/day</strong></p>
+      <p>Bidding: <strong>Conversions</strong> (leave target CPA blank)</p>
+      <p>Location: <strong>United States</strong></p>
+      <p>Language: <strong>English</strong></p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">3</span>
+      <span class="step-title">Add Keywords</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Create an ad group named <strong>"Apprenticeship"</strong></p>
+      <p>Paste ALL of these keywords at once:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY ALL</button>
+        <code>"machinist apprenticeship"
+"CNC machinist training"
+"machine shop apprentice"
+"machinist career"
+"learn CNC machining"
+"trade school machining"
+"machinist jobs Atlanta"</code>
+      </div>
+      <p>The quotes mean <strong>phrase match</strong> - your ad shows when someone searches these phrases (or close variations). This prevents wasting budget on irrelevant searches.</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">4</span>
+      <span class="step-title">Write the Ad</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Final URL:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>https://southernmachinistcompany.com</code>
+      </div>
+      <p>Headline 1:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Machinist Apprenticeship</code>
+      </div>
+      <p>Headline 2:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Learn From 30yr Veterans</code>
+      </div>
+      <p>Headline 3:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Apply Today - Limited Spots</code>
+      </div>
+      <p>Description 1:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Start your career in precision machining. Hands-on training with experienced machinists. Apply now.</code>
+      </div>
+      <p>Description 2:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>No experience needed. Learn CNC milling, turning, and more. Atlanta-based apprenticeship program.</code>
+      </div>
+      <p>Skip sitelinks and other optional stuff. Just fill the required fields above.</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">5</span>
+      <span class="step-title">Publish & Verify</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Review everything looks right, then hit <strong>Publish</strong>.</p>
+      <p><strong>Leave this one RUNNING</strong> (unlike Quote Seekers which we're keeping paused for now).</p>
+      <p>Google will review the ad (usually approved within a few hours).</p>
+      <p>Come back here and check off the checklist items above.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PERFORMANCE DASHBOARD (Phase 2) -->
+<div class="performance-section">
+  <h3>Performance Dashboard</h3>
+  <p>Live performance data will appear here once campaigns are running. We'll pull this from the Google Ads MCP.</p>
+  <div class="performance-grid">
+    <div class="perf-placeholder">
+      <div class="perf-label">Impressions</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">Clicks</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">Cost</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">Conversions</div>
+      <div class="perf-value">---</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTIMIZATION PLAYBOOK -->
+<div class="steps-section">
+  <div class="section-title">Week 1 Optimization Playbook</div>
+  <p class="section-subtitle">After 7 days of running, we'll review performance and make these adjustments.</p>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">A</span>
+      <span class="step-title">Review Search Terms Report</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>We'll pull the actual search terms people typed to trigger your ads via MCP.</p>
+      <p><strong>Kill</strong> any irrelevant terms (add as negative keywords).</p>
+      <p><strong>Double down</strong> on terms that got clicks/conversions.</p>
+      <p>This is where the MCP becomes the command center - I query, you act.</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">B</span>
+      <span class="step-title">Check Cost Per Lead</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Target: Under <strong>$20 per lead</strong> for quote requests, under <strong>$10 per lead</strong> for apprentice applications.</p>
+      <p>If cost per lead is too high: tighten keywords, pause low performers.</p>
+      <p>If cost per lead is good: increase budget on winners.</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number">C</span>
+      <span class="step-title">A/B Test Ad Copy</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Create variant ads with different headlines/descriptions.</p>
+      <p>Test urgency ("Limited Spots" vs "Open Enrollment"), benefits ("Free Quote" vs "Same-Day Estimates"), authority ("30 Years" vs "Master Machinists").</p>
+      <p>We'll update this playbook with the winning copy for future campaigns.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Southern Machinist Company &bull; Ads Command Center v1.0 &bull; Built 2/11/2026<br>
+  Data source: Google Ads MCP (Account 158-975-7158) &bull; Read-only monitoring via GAQL
+</div>
+
+<script>
+function toggleStep(el) {
+  el.classList.toggle('open');
+}
+
+function copyText(block) {
+  const code = block.querySelector('code');
+  const btn = block.querySelector('.copy-btn');
+  const text = code.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = btn.dataset.original || 'COPY';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Store original button text
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.dataset.original = btn.textContent;
+});
+</script>
+
+</body>
+</html>
