@@ -40,6 +40,28 @@
     font-size: 0.85rem;
     color: #94a3b8;
   }
+  .strategy-banner {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+    border: 1px solid #f97316;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .strategy-banner h3 {
+    color: #f97316;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .strategy-banner p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .strategy-banner .highlight {
+    color: #22c55e;
+    font-weight: 700;
+  }
 
   /* Status Bar */
   .status-bar {
@@ -70,6 +92,7 @@
   .status-card .value.green { color: #22c55e; }
   .status-card .value.yellow { color: #eab308; }
   .status-card .value.red { color: #ef4444; }
+  .status-card .value.blue { color: #818cf8; }
 
   /* Campaign Cards */
   .campaigns {
@@ -84,6 +107,8 @@
     border-radius: 16px;
     overflow: hidden;
   }
+  .campaign-card.variant-a { border-color: #3b82f6; }
+  .campaign-card.variant-b { border-color: #a855f7; }
   .campaign-header {
     padding: 1.5rem;
     display: flex;
@@ -106,6 +131,9 @@
   .badge.paused { background: #422006; color: #f97316; }
   .badge.live { background: #052e16; color: #22c55e; animation: pulse 2s infinite; }
   .badge.todo { background: #1e1b4b; color: #818cf8; }
+  .badge.variant-a-badge { background: #1e3a5f; color: #3b82f6; }
+  .badge.variant-b-badge { background: #2e1065; color: #a855f7; }
+  .badge.shelved { background: #1c1917; color: #78716c; }
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }
@@ -129,6 +157,28 @@
     font-size: 1rem;
     color: #e2e8f0;
     margin-top: 0.2rem;
+  }
+  .test-angle {
+    background: #0a0e17;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid;
+  }
+  .test-angle.angle-a { border-color: #3b82f6; }
+  .test-angle.angle-b { border-color: #a855f7; }
+  .test-angle .angle-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+  }
+  .test-angle.angle-a .angle-title { color: #3b82f6; }
+  .test-angle.angle-b .angle-title { color: #a855f7; }
+  .test-angle p {
+    color: #94a3b8;
+    font-size: 0.85rem;
   }
 
   /* Steps */
@@ -179,6 +229,7 @@
     flex-shrink: 0;
   }
   .step-number.done { background: #22c55e; }
+  .step-number.purple { background: #a855f7; }
   .step-title { font-size: 1rem; font-weight: 600; }
   .step-arrow {
     margin-left: auto;
@@ -348,6 +399,26 @@
     margin: 2rem 0;
   }
 
+  /* Shelved section */
+  .shelved-section {
+    background: #111827;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    opacity: 0.6;
+  }
+  .shelved-section:hover { opacity: 1; }
+  .shelved-section h3 {
+    color: #78716c;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .shelved-section p {
+    color: #57534e;
+    font-size: 0.9rem;
+  }
+
   /* Footer */
   .footer {
     text-align: center;
@@ -371,39 +442,50 @@
 <div class="header">
   <h1>SMC ADS COMMAND CENTER</h1>
   <p>Southern Machinist Company - Google Ads Playbook & Performance Tracker</p>
-  <div class="account-badge">Account: 158-975-7158 &bull; questfilmandmedia@gmail.com &bull; $10/day total budget</div>
+  <div class="account-badge">Account: 158-975-7158 &bull; questfilmandmedia@gmail.com &bull; $5/day total budget</div>
+</div>
+
+<!-- STRATEGY BANNER -->
+<div class="strategy-banner">
+  <h3>Current Strategy: A/B Test - Quote Seekers</h3>
+  <p>Two campaigns, same audience, different ad copy angles. <span class="highlight">$2.50/day each = $5/day total.</span><br>
+  Run for 2 weeks, kill the loser, give the winner the full budget. Apprentice ads shelved until business picks up.</p>
 </div>
 
 <!-- STATUS BAR -->
 <div class="status-bar">
   <div class="status-card">
-    <div class="label">Total Campaigns</div>
+    <div class="label">Active Campaigns</div>
     <div class="value">2</div>
   </div>
   <div class="status-card">
     <div class="label">Daily Budget</div>
-    <div class="value">$10</div>
+    <div class="value">$5</div>
   </div>
   <div class="status-card">
-    <div class="label">Quote Seekers</div>
-    <div class="value yellow">PAUSED</div>
+    <div class="label">Variant A</div>
+    <div class="value green">LIVE</div>
   </div>
   <div class="status-card">
-    <div class="label">Apprentice Pipeline</div>
-    <div class="value red">NOT BUILT</div>
+    <div class="label">Variant B</div>
+    <div class="value blue">TO BUILD</div>
   </div>
 </div>
 
 <!-- CAMPAIGN CARDS -->
 <div class="campaigns">
 
-  <!-- Campaign 1: Quote Seekers -->
-  <div class="campaign-card">
+  <!-- Campaign A: Quote Seekers (Precision & Experience angle) -->
+  <div class="campaign-card variant-a">
     <div class="campaign-header">
-      <h2>SMC - Quote Seekers</h2>
-      <span class="badge paused">PAUSED</span>
+      <h2>SMC - Quote Seekers A</h2>
+      <span class="badge live">LIVE</span>
     </div>
     <div class="campaign-body">
+      <div class="test-angle angle-a">
+        <div class="angle-title">Angle: Precision & Experience</div>
+        <p>Emphasizes expertise, 30+ years, and quality. Appeals to buyers who want reliability and trust.</p>
+      </div>
       <div class="campaign-meta">
         <div class="meta-item">
           <div class="meta-label">Type</div>
@@ -411,7 +493,7 @@
         </div>
         <div class="meta-item">
           <div class="meta-label">Budget</div>
-          <div class="meta-value">$5.00/day</div>
+          <div class="meta-value">$2.50/day</div>
         </div>
         <div class="meta-item">
           <div class="meta-label">Bidding</div>
@@ -438,37 +520,40 @@
         <span class="keyword-tag">machine shop near me</span>
         <span class="keyword-tag">custom metal parts</span>
         <span class="keyword-tag">prototype machining</span>
-        <span class="keyword-tag">machinist apprenticeship Atlanta</span>
       </div>
 
       <hr class="divider">
-      <div class="copy-label">Status Checklist</div>
+      <div class="copy-label">Action Items</div>
       <ul class="checklist">
-        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Campaign created in Google Ads</li>
-        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Renamed to SMC - Quote Seekers</li>
-        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Ad copy loaded (3 headlines, 2 descriptions)</li>
-        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Images uploaded</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Unpause when ready to spend</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Monitor for 7 days, review search terms</li>
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Campaign created & live</li>
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Logo swapped to SMC gear icon</li>
+        <li class="done" onclick="this.classList.toggle('done')"><span class="check">&#10003;</span> Ad copy loaded</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Lower budget from $5 to $2.50/day</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Rename to "SMC - Quote Seekers A" in dashboard</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Set up auto-pause rule (cost > $20/week)</li>
       </ul>
     </div>
   </div>
 
-  <!-- Campaign 2: Apprentice Pipeline -->
-  <div class="campaign-card">
+  <!-- Campaign B: Quote Seekers (Speed & Service angle) -->
+  <div class="campaign-card variant-b">
     <div class="campaign-header">
-      <h2>SMC - Apprentice Pipeline</h2>
+      <h2>SMC - Quote Seekers B</h2>
       <span class="badge todo">TO BUILD</span>
     </div>
     <div class="campaign-body">
+      <div class="test-angle angle-b">
+        <div class="angle-title">Angle: Speed & Service</div>
+        <p>Emphasizes fast turnaround, blueprint-to-part pipeline, and responsiveness. Appeals to buyers who need parts NOW.</p>
+      </div>
       <div class="campaign-meta">
         <div class="meta-item">
           <div class="meta-label">Type</div>
-          <div class="meta-value">Search</div>
+          <div class="meta-value">Performance Max</div>
         </div>
         <div class="meta-item">
           <div class="meta-label">Budget</div>
-          <div class="meta-value">$5.00/day</div>
+          <div class="meta-value">$2.50/day</div>
         </div>
         <div class="meta-item">
           <div class="meta-label">Bidding</div>
@@ -478,37 +563,37 @@
       <div class="copy-label">Headlines (copy these)</div>
       <div class="copy-block" onclick="copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Machinist Apprenticeship</code>
+        <code>Custom Parts - Fast Turnaround</code>
       </div>
       <div class="copy-block" onclick="copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Learn From 30yr Veterans</code>
+        <code>Blueprint to Finished Part</code>
       </div>
       <div class="copy-block" onclick="copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Apply Today - Limited Spots</code>
+        <code>Free Quote Within 24 Hours</code>
+      </div>
+
+      <div class="copy-label" style="margin-top:1rem;">Long Headline</div>
+      <div class="copy-block" onclick="copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Fast CNC Machining - Blueprint to Part - Get Your Free Quote in 24 Hours</code>
       </div>
 
       <div class="copy-label" style="margin-top:1rem;">Descriptions (copy these)</div>
       <div class="copy-block" onclick="copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Start your career in precision machining. Hands-on training with experienced machinists. Apply now.</code>
+        <code>Same-week quotes. Aluminum, steel, titanium & more. Prototype to production. Atlanta machine shop.</code>
       </div>
       <div class="copy-block" onclick="copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>No experience needed. Learn CNC milling, turning, and more. Atlanta-based apprenticeship program.</code>
+        <code>Send your blueprint, get your quote fast. CNC milling & turning. No job too complex.</code>
       </div>
 
-      <div class="copy-label" style="margin-top:1rem;">Keywords (paste all at once)</div>
+      <div class="copy-label" style="margin-top:1rem;">Business Name</div>
       <div class="copy-block" onclick="copyText(this)">
-        <button class="copy-btn">COPY ALL</button>
-        <code>"machinist apprenticeship"
-"CNC machinist training"
-"machine shop apprentice"
-"machinist career"
-"learn CNC machining"
-"trade school machining"
-"machinist jobs Atlanta"</code>
+        <button class="copy-btn">COPY</button>
+        <code>Southern Machinist Co.</code>
       </div>
 
       <div class="copy-label" style="margin-top:1rem;">Final URL</div>
@@ -518,18 +603,19 @@
       </div>
 
       <hr class="divider">
-      <div class="copy-label">Status Checklist</div>
+      <div class="copy-label">Build Checklist</div>
       <ul class="checklist">
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Create new campaign in Google Ads</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Select goal: Leads > Submit lead form</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Campaign type: Search (uncheck Display Network)</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Name it: SMC - Apprentice Pipeline</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Set budget: $5/day</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Add keywords from above</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Paste ad copy (headlines + descriptions)</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Create new campaign in Google Ads (Performance Max)</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Name it: SMC - Quote Seekers B</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Set budget: $2.50/day</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Paste headlines from above</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Paste descriptions from above</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Upload SMC logo (same as Campaign A)</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Add same images as Campaign A</li>
         <li onclick="this.classList.toggle('done')"><span class="check"></span> Set final URL</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Publish (leave running)</li>
-        <li onclick="this.classList.toggle('done')"><span class="check"></span> Monitor for 7 days, review search terms</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Add same search themes as Campaign A</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Publish and leave running</li>
+        <li onclick="this.classList.toggle('done')"><span class="check"></span> Set up auto-pause rule (cost > $20/week)</li>
       </ul>
     </div>
   </div>
@@ -537,27 +623,25 @@
 
 <!-- STEP BY STEP GUIDE -->
 <div class="steps-section">
-  <div class="section-title">Step-by-Step: Build the Apprentice Pipeline Campaign</div>
+  <div class="section-title">Step-by-Step: Build Quote Seekers B</div>
   <p class="section-subtitle">Follow these steps in Google Ads (ads.google.com). Click each step to expand.</p>
 
   <div class="step open" onclick="toggleStep(this)">
     <div class="step-header">
-      <span class="step-number">1</span>
+      <span class="step-number purple">1</span>
       <span class="step-title">Start a New Campaign</span>
       <span class="step-arrow">&#9660;</span>
     </div>
     <div class="step-content">
       <p>Go to <strong>ads.google.com</strong> and click the blue <strong>"+"</strong> button or <strong>"New Campaign"</strong>.</p>
-      <p>Select goal: <strong>Leads</strong></p>
-      <p>Select conversion goal: <strong>Submit lead form</strong></p>
-      <p>Campaign type: <strong>Search</strong> (NOT Performance Max - we want keyword control)</p>
-      <p>Uncheck <strong>"Include Google Display Network"</strong> to keep budget focused on search only.</p>
+      <p>Select goal: <strong>Leads</strong> > <strong>Submit lead form</strong></p>
+      <p>Campaign type: <strong>Performance Max</strong> (same type as Campaign A for fair A/B comparison)</p>
     </div>
   </div>
 
   <div class="step" onclick="toggleStep(this)">
     <div class="step-header">
-      <span class="step-number">2</span>
+      <span class="step-number purple">2</span>
       <span class="step-title">Name & Budget</span>
       <span class="step-arrow">&#9660;</span>
     </div>
@@ -565,10 +649,10 @@
       <p>Campaign name:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>SMC - Apprentice Pipeline</code>
+        <code>SMC - Quote Seekers B</code>
       </div>
-      <p>Budget: <strong>$5.00/day</strong></p>
-      <p>Bidding: <strong>Conversions</strong> (leave target CPA blank)</p>
+      <p>Budget: <strong>$2.50/day</strong></p>
+      <p>Bidding: <strong>Maximize Conversions</strong> (no target CPA)</p>
       <p>Location: <strong>United States</strong></p>
       <p>Language: <strong>English</strong></p>
     </div>
@@ -576,35 +660,12 @@
 
   <div class="step" onclick="toggleStep(this)">
     <div class="step-header">
-      <span class="step-number">3</span>
-      <span class="step-title">Add Keywords</span>
+      <span class="step-number purple">3</span>
+      <span class="step-title">Create Asset Group & Paste Ad Copy</span>
       <span class="step-arrow">&#9660;</span>
     </div>
     <div class="step-content">
-      <p>Create an ad group named <strong>"Apprenticeship"</strong></p>
-      <p>Paste ALL of these keywords at once:</p>
-      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
-        <button class="copy-btn">COPY ALL</button>
-        <code>"machinist apprenticeship"
-"CNC machinist training"
-"machine shop apprentice"
-"machinist career"
-"learn CNC machining"
-"trade school machining"
-"machinist jobs Atlanta"</code>
-      </div>
-      <p>The quotes mean <strong>phrase match</strong> - your ad shows when someone searches these phrases (or close variations). This prevents wasting budget on irrelevant searches.</p>
-    </div>
-  </div>
-
-  <div class="step" onclick="toggleStep(this)">
-    <div class="step-header">
-      <span class="step-number">4</span>
-      <span class="step-title">Write the Ad</span>
-      <span class="step-arrow">&#9660;</span>
-    </div>
-    <div class="step-content">
-      <p>Final URL:</p>
+      <p>Set the Final URL:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
         <code>https://southernmachinistcompany.com</code>
@@ -612,66 +673,125 @@
       <p>Headline 1:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Machinist Apprenticeship</code>
+        <code>Custom Parts - Fast Turnaround</code>
       </div>
       <p>Headline 2:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Learn From 30yr Veterans</code>
+        <code>Blueprint to Finished Part</code>
       </div>
       <p>Headline 3:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Apply Today - Limited Spots</code>
+        <code>Free Quote Within 24 Hours</code>
+      </div>
+      <p>Long Headline:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Fast CNC Machining - Blueprint to Part - Get Your Free Quote in 24 Hours</code>
       </div>
       <p>Description 1:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>Start your career in precision machining. Hands-on training with experienced machinists. Apply now.</code>
+        <code>Same-week quotes. Aluminum, steel, titanium & more. Prototype to production. Atlanta machine shop.</code>
       </div>
       <p>Description 2:</p>
       <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
         <button class="copy-btn">COPY</button>
-        <code>No experience needed. Learn CNC milling, turning, and more. Atlanta-based apprenticeship program.</code>
+        <code>Send your blueprint, get your quote fast. CNC milling & turning. No job too complex.</code>
       </div>
-      <p>Skip sitelinks and other optional stuff. Just fill the required fields above.</p>
+      <p>Business name:</p>
+      <div class="copy-block" onclick="event.stopPropagation(); copyText(this)">
+        <button class="copy-btn">COPY</button>
+        <code>Southern Machinist Co.</code>
+      </div>
     </div>
   </div>
 
   <div class="step" onclick="toggleStep(this)">
     <div class="step-header">
-      <span class="step-number">5</span>
-      <span class="step-title">Publish & Verify</span>
+      <span class="step-number purple">4</span>
+      <span class="step-title">Upload Images & Logo</span>
       <span class="step-arrow">&#9660;</span>
     </div>
     <div class="step-content">
-      <p>Review everything looks right, then hit <strong>Publish</strong>.</p>
-      <p><strong>Leave this one RUNNING</strong> (unlike Quote Seekers which we're keeping paused for now).</p>
-      <p>Google will review the ad (usually approved within a few hours).</p>
-      <p>Come back here and check off the checklist items above.</p>
+      <p>Use the <strong>same images and logo</strong> as Campaign A. We only want to test the ad COPY, not the visuals.</p>
+      <p>Upload the SMC gear logo as the square logo.</p>
+      <p>Use the same stock images or suggested images for landscape/square/portrait.</p>
+      <p>Add the same search themes you used in Campaign A (Google may suggest them automatically).</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number purple">5</span>
+      <span class="step-title">Publish & Set Budget Alert</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Review everything, then hit <strong>Publish</strong>. Leave it <strong>RUNNING</strong>.</p>
+      <p>Then set up a budget rule:</p>
+      <p>Go to <strong>Tools > Rules > New Rule</strong>:</p>
+      <ul style="color:#94a3b8; margin-left:1rem; margin-bottom:0.8rem;">
+        <li>Apply to: This campaign</li>
+        <li>Action: Pause campaign</li>
+        <li>Condition: Cost > $20 (one week of spend)</li>
+        <li>Frequency: Daily</li>
+        <li>Email notification: ON</li>
+      </ul>
+      <p>Do the same rule for Campaign A if you haven't already.</p>
+    </div>
+  </div>
+
+  <div class="step" onclick="toggleStep(this)">
+    <div class="step-header">
+      <span class="step-number purple">6</span>
+      <span class="step-title">Lower Campaign A Budget</span>
+      <span class="step-arrow">&#9660;</span>
+    </div>
+    <div class="step-content">
+      <p>Go to <strong>SMC - Quote Seekers</strong> (Campaign A) and change the daily budget from <strong>$5.00 to $2.50</strong>.</p>
+      <p>Optionally rename it to <strong>SMC - Quote Seekers A</strong> to keep the A/B naming clear.</p>
+      <p>Both campaigns should now be running at $2.50/day = $5/day total.</p>
     </div>
   </div>
 </div>
 
 <!-- PERFORMANCE DASHBOARD (Phase 2) -->
 <div class="performance-section">
-  <h3>Performance Dashboard</h3>
-  <p>Live performance data will appear here once campaigns are running. We'll pull this from the Google Ads MCP.</p>
+  <h3>A/B Test Performance Dashboard</h3>
+  <p>After 2 weeks of data, we'll compare both campaigns here. The winner gets the full $5/day budget.</p>
   <div class="performance-grid">
     <div class="perf-placeholder">
-      <div class="perf-label">Impressions</div>
+      <div class="perf-label">A: Impressions</div>
       <div class="perf-value">---</div>
     </div>
     <div class="perf-placeholder">
-      <div class="perf-label">Clicks</div>
+      <div class="perf-label">A: Clicks</div>
       <div class="perf-value">---</div>
     </div>
     <div class="perf-placeholder">
-      <div class="perf-label">Cost</div>
+      <div class="perf-label">B: Impressions</div>
       <div class="perf-value">---</div>
     </div>
     <div class="perf-placeholder">
-      <div class="perf-label">Conversions</div>
+      <div class="perf-label">B: Clicks</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">A: Cost</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">A: Conversions</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">B: Cost</div>
+      <div class="perf-value">---</div>
+    </div>
+    <div class="perf-placeholder">
+      <div class="perf-label">B: Conversions</div>
       <div class="perf-value">---</div>
     </div>
   </div>
@@ -679,8 +799,8 @@
 
 <!-- OPTIMIZATION PLAYBOOK -->
 <div class="steps-section">
-  <div class="section-title">Week 1 Optimization Playbook</div>
-  <p class="section-subtitle">After 7 days of running, we'll review performance and make these adjustments.</p>
+  <div class="section-title">Week 1-2 Optimization Playbook</div>
+  <p class="section-subtitle">After the A/B test period, we'll make data-driven decisions.</p>
 
   <div class="step" onclick="toggleStep(this)">
     <div class="step-header">
@@ -690,42 +810,61 @@
     </div>
     <div class="step-content">
       <p>We'll pull the actual search terms people typed to trigger your ads via MCP.</p>
-      <p><strong>Kill</strong> any irrelevant terms (add as negative keywords).</p>
+      <p><strong>Kill</strong> any irrelevant terms (add as negative keywords in the dashboard).</p>
       <p><strong>Double down</strong> on terms that got clicks/conversions.</p>
-      <p>This is where the MCP becomes the command center - I query, you act.</p>
     </div>
   </div>
 
   <div class="step" onclick="toggleStep(this)">
     <div class="step-header">
       <span class="step-number">B</span>
-      <span class="step-title">Check Cost Per Lead</span>
+      <span class="step-title">Pick the Winner</span>
       <span class="step-arrow">&#9660;</span>
     </div>
     <div class="step-content">
-      <p>Target: Under <strong>$20 per lead</strong> for quote requests, under <strong>$10 per lead</strong> for apprentice applications.</p>
-      <p>If cost per lead is too high: tighten keywords, pause low performers.</p>
-      <p>If cost per lead is good: increase budget on winners.</p>
+      <p>Compare Campaign A vs B on:</p>
+      <ul style="color:#94a3b8; margin-left:1rem; margin-bottom:0.8rem;">
+        <li><strong>CTR</strong> (click-through rate) - which ad gets more clicks per impression</li>
+        <li><strong>Cost per click</strong> - which one is cheaper</li>
+        <li><strong>Conversions</strong> - which one actually gets form submissions</li>
+        <li><strong>Cost per conversion</strong> - the ultimate metric</li>
+      </ul>
+      <p>Target: Under <strong>$20 per lead</strong> for quote requests.</p>
+      <p>Kill the loser. Give the winner the full <strong>$5/day</strong> budget.</p>
     </div>
   </div>
 
   <div class="step" onclick="toggleStep(this)">
     <div class="step-header">
       <span class="step-number">C</span>
-      <span class="step-title">A/B Test Ad Copy</span>
+      <span class="step-title">Iterate on the Winner</span>
       <span class="step-arrow">&#9660;</span>
     </div>
     <div class="step-content">
-      <p>Create variant ads with different headlines/descriptions.</p>
-      <p>Test urgency ("Limited Spots" vs "Open Enrollment"), benefits ("Free Quote" vs "Same-Day Estimates"), authority ("30 Years" vs "Master Machinists").</p>
-      <p>We'll update this playbook with the winning copy for future campaigns.</p>
+      <p>Once we have a winner, create a new B variant to test against it.</p>
+      <p>Possible next tests: urgency copy, different CTAs, location-specific targeting, different landing pages.</p>
+      <p>We'll update this playbook with the winning copy each round.</p>
     </div>
   </div>
 </div>
 
+<!-- SHELVED: APPRENTICE PIPELINE -->
+<div class="shelved-section">
+  <h3>Shelved: Apprentice Pipeline</h3>
+  <p>On hold until business volume increases. When ready, create a Search campaign targeting machinist apprenticeship keywords at $2.50-5/day. Copy and keywords are saved and ready to deploy.</p>
+  <div class="keyword-list" style="margin-top:1rem;">
+    <span class="keyword-tag">machinist apprenticeship</span>
+    <span class="keyword-tag">CNC machinist training</span>
+    <span class="keyword-tag">machine shop apprentice</span>
+    <span class="keyword-tag">machinist career</span>
+    <span class="keyword-tag">learn CNC machining</span>
+    <span class="keyword-tag">machinist jobs Atlanta</span>
+  </div>
+</div>
+
 <div class="footer">
-  Southern Machinist Company &bull; Ads Command Center v1.0 &bull; Built 2/11/2026<br>
-  Data source: Google Ads MCP (Account 158-975-7158) &bull; Read-only monitoring via GAQL
+  Southern Machinist Company &bull; Ads Command Center v1.1 &bull; Updated 2/11/2026<br>
+  Strategy: A/B Test (Precision vs Speed) &bull; Data source: Google Ads MCP (Account 158-975-7158)
 </div>
 
 <script>
