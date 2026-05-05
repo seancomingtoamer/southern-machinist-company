@@ -194,8 +194,8 @@ export default function HomePage() {
             {/* Photo */}
             <div className="relative rounded-xl overflow-hidden border border-slate-700 aspect-[4/3]">
               <Image
-                src="/images/Finger003.png"
-                alt="Precision machined finger part by Southern Machinist Company"
+                src="/shop/IMG_0234.jpg"
+                alt="The Machine Shop"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

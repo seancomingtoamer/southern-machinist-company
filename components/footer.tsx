@@ -1,5 +1,6 @@
 import React from "react"
-import { Wrench } from "lucide-react"
+import { Wrench, Phone, MapPin } from "lucide-react"
+import { PHONE_DISPLAY, PHONE_HREF, ADDRESS_STREET, ADDRESS_CITY_STATE_ZIP } from "@/lib/contact"
 
 export function Footer() {
   return (
@@ -34,11 +35,11 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-2">
               {[
-                { label: "Services", href: "#services" },
-                { label: "About", href: "#about" },
-                { label: "Equipment", href: "#equipment" },
-                { label: "Get a Quote", href: "#quote" },
-                { label: "Careers", href: "#careers" },
+                { label: "Services", href: "/#services" },
+                { label: "About", href: "/#about" },
+                { label: "Equipment", href: "/#equipment" },
+                { label: "Get a Quote", href: "/#quote" },
+                { label: "Careers", href: "/#careers" },
               ].map((link) => (
                 <a
                   key={link.href}
@@ -51,17 +52,25 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Location */}
+          {/* Visit / Call */}
           <div>
             <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-orange-400 mb-4">
-              Service Area
+              Visit / Call
             </h4>
-            <p className="text-steel-400 text-sm leading-relaxed">
-              Atlanta, GA Metropolitan Area
-            </p>
-            <p className="text-steel-400 text-sm leading-relaxed mt-2">
-              Serving customers nationwide with precision parts shipping.
-            </p>
+            <a
+              href={PHONE_HREF}
+              className="flex items-center gap-2 text-white hover:text-orange-400 transition-colors text-sm font-semibold mb-3"
+            >
+              <Phone className="w-4 h-4 text-orange-400 shrink-0" />
+              {PHONE_DISPLAY}
+            </a>
+            <div className="flex items-start gap-2 text-steel-400 text-sm leading-relaxed">
+              <MapPin className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
+              <div>
+                <div>{ADDRESS_STREET}</div>
+                <div>{ADDRESS_CITY_STATE_ZIP}</div>
+              </div>
+            </div>
           </div>
         </div>
 

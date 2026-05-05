@@ -10,15 +10,13 @@ import { useToast } from "@/hooks/use-toast"
 
 const WEBHOOK_URL = "https://seanpro.app.n8n.cloud/webhook/smc-quote-request"
 
-const materials = [
-  "Aluminum",
-  "Steel",
-  "Stainless Steel",
-  "Brass",
-  "Bronze",
-  "Copper",
-  "Titanium",
-  "Plastic",
+const jobTypes = [
+  "Bushing Replacement",
+  "Cylinder Lug Repair",
+  "Bore Welding & Machining",
+  "Line Boring & Alignment",
+  "General Machining",
+  "Custom Fabrication",
   "Other",
 ]
 
@@ -26,7 +24,7 @@ const priorities = ["Low", "Normal", "High", "Urgent"]
 
 interface QuoteFormProps {
   calculatorData?: {
-    material: string
+    jobType: string
     complexity: string
     quantity: string
     tolerance: string
@@ -51,11 +49,10 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
       phone: formData.get("phone"),
       company: formData.get("company"),
       description: formData.get("description"),
-      material: formData.get("material"),
+      job_type: formData.get("job_type"),
       quantity: formData.get("quantity"),
       priority: formData.get("priority"),
       drawing_notes: formData.get("drawing_notes"),
-      // Include calculator context if available
       ...(calculatorData && {
         calculator_complexity: calculatorData.complexity,
         calculator_tolerance: calculatorData.tolerance,
@@ -127,7 +124,7 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
         <label className="block text-sm font-semibold text-steel-200 mb-1.5">Job Description *</label>
         <Textarea
           name="description"
-          placeholder="Describe what you need machined — dimensions, features, finish requirements..."
+          placeholder="What needs work? Equipment make/model, attachment type, what failed, bore sizes if you have them..."
           required
           rows={4}
         />
@@ -135,14 +132,14 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-semibold text-steel-200 mb-1.5">Material *</label>
-          <Select name="material" required defaultValue={calculatorData?.material}>
+          <label className="block text-sm font-semibold text-steel-200 mb-1.5">Job Type *</label>
+          <Select name="job_type" required defaultValue={calculatorData?.jobType}>
             <SelectTrigger>
-              <SelectValue placeholder="Select material" />
+              <SelectValue placeholder="Select job type" />
             </SelectTrigger>
             <SelectContent>
-              {materials.map((m) => (
-                <SelectItem key={m} value={m}>{m}</SelectItem>
+              {jobTypes.map((j) => (
+                <SelectItem key={j} value={j}>{j}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -153,7 +150,7 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
             name="quantity"
             type="number"
             min="1"
-            placeholder="How many parts?"
+            placeholder="How many components?"
             required
             defaultValue={calculatorData?.quantity}
           />
@@ -174,10 +171,10 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-steel-200 mb-1.5">Drawing Notes / Special Instructions</label>
+        <label className="block text-sm font-semibold text-steel-200 mb-1.5">Specs / Notes</label>
         <Textarea
           name="drawing_notes"
-          placeholder="Tolerances, surface finish, certifications needed..."
+          placeholder="Bore diameter, bushing OD/ID, tolerances, material, surface finish, certifications needed..."
           rows={3}
         />
       </div>
