@@ -66,7 +66,7 @@ const trustStats = [
 ]
 
 const equipmentImages = [
-  { src: "/shop/equipment.jpg", alt: "CNC Machine" },
+  { src: "/shop/lathe.jpg", alt: "JEGUI engine lathe in the shop" },
   { src: "/shop/equi.jpg", alt: "Shop Floor Equipment" },
   { src: "/shop/IMG_0219.jpg", alt: "Machining in Progress" },
   { src: "/shop/IMG_0236.jpg", alt: "Precision Work" },
