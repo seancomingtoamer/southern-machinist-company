@@ -1,12 +1,14 @@
 import React from "react"
+import Link from "next/link"
 import { Wrench, Phone, MapPin } from "lucide-react"
 import { PHONE_DISPLAY, PHONE_HREF, ADDRESS_STREET, ADDRESS_CITY_STATE_ZIP } from "@/lib/contact"
+import { specialties } from "@/lib/specialties"
 
 export function Footer() {
   return (
     <footer className="bg-navy-900 border-t border-slate-700/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -28,6 +30,24 @@ export function Footer() {
             </p>
           </div>
 
+          {/* Specialties */}
+          <div>
+            <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-orange-400 mb-4">
+              Specialties
+            </h4>
+            <div className="flex flex-col gap-2">
+              {specialties.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={s.href}
+                  className="text-steel-400 hover:text-orange-400 transition-colors text-sm"
+                >
+                  {s.shortTitle}
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Quick Links */}
           <div>
             <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-orange-400 mb-4">
@@ -35,19 +55,18 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-2">
               {[
-                { label: "Services", href: "/#services" },
-                { label: "About", href: "/#about" },
-                { label: "Equipment", href: "/#equipment" },
+                { label: "Services", href: "/services" },
+                { label: "About", href: "/about" },
                 { label: "Get a Quote", href: "/#quote" },
-                { label: "Careers", href: "/#careers" },
+                { label: "Careers", href: "/careers" },
               ].map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   className="text-steel-400 hover:text-orange-400 transition-colors text-sm"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
