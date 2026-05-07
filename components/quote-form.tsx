@@ -16,6 +16,7 @@ const jobTypes = [
   "Bore Welding & Machining",
   "Line Boring & Alignment",
   "General Machining",
+  "Mobile Welding / Repair",
   "Custom Fabrication",
   "Other",
 ]

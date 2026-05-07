@@ -8,7 +8,6 @@ import { specialties } from "@/lib/specialties"
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/contact"
 
 const navLinks = [
-  { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
 ]
@@ -41,7 +40,7 @@ export function Nav() {
               <Link
                 key={s.slug}
                 href={s.href}
-                className="font-heading text-sm font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 transition-colors"
+                className="font-heading text-sm font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 transition-colors whitespace-nowrap"
               >
                 {s.navLabel}
               </Link>
@@ -50,7 +49,7 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-heading text-sm font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 transition-colors"
+                className="font-heading text-sm font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 transition-colors whitespace-nowrap"
               >
                 {link.label}
               </Link>

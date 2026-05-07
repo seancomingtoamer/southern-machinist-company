@@ -1,4 +1,4 @@
-import { Anchor, Utensils, Fence, type LucideIcon } from "lucide-react"
+import { Anchor, Utensils, Fence, Flame, type LucideIcon } from "lucide-react"
 
 export interface Specialty {
   slug: string
@@ -40,6 +40,16 @@ export const specialties: Specialty[] = [
     blurb:
       "Custom gate design, fabrication, hardware, and installation for property managers, commercial sites, and industrial operators.",
     icon: Fence,
+  },
+  {
+    slug: "mobile-welding-repair",
+    href: "/mobile-welding-repair",
+    title: "Mobile Welding & Repair",
+    shortTitle: "Mobile Welding",
+    navLabel: "Mobile Welding",
+    blurb:
+      "On-site welding and metal repair across metro Atlanta. We roll the truck and trailer to your site for broken trailers, equipment, gates, and structural work.",
+    icon: Flame,
   },
 ]
 

@@ -72,6 +72,8 @@ const equipmentImages = [
   { src: "/shop/IMG_0236.jpg", alt: "Precision Work" },
   { src: "/shop/IMG_0237.jpg", alt: "Manufacturing Setup" },
   { src: "/shop/IMG_0238.jpg", alt: "Quality Equipment" },
+  { src: "/shop/welder-miller.jpg", alt: "Miller welder in the shop" },
+  { src: "/shop/green-mill.jpg", alt: "Horizontal milling machine on the shop floor" },
 ]
 
 const portfolioImages = [
