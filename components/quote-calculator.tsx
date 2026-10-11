@@ -318,7 +318,7 @@ export function QuoteCalculator() {
             </div>
             <div className="section-divider mb-6" />
             <p className="text-steel-300 text-center mb-5 text-sm">
-              Want an exact quote? Drop your info and we&apos;ll get back to you within 24 hours with a detailed breakdown.
+              Want an exact quote? Drop your info and we&apos;ll reach out within 24 hours to go over the details.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
               <div>

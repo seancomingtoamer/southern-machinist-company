@@ -91,7 +91,7 @@ const trustStats = [
   { value: "30+", label: "Years of Metalwork", icon: Clock },
   { value: "Built", label: "To Last", icon: Target },
   { value: "Local", label: "Install & Repair", icon: Award },
-  { value: "24hr", label: "Quote Turnaround", icon: Gauge },
+  { value: "24hr", label: "First Response", icon: Gauge },
 ]
 
 const gateTypes = [
@@ -406,7 +406,7 @@ export default function CustomGateFabricationPage() {
               Get Your <span className="text-orange-500">Quote</span>
             </h2>
             <p className="mt-4 text-steel-400 max-w-xl mx-auto text-lg">
-              Send us measurements, photos, or just describe the opening — we&apos;ll come measure if needed. Quote back within 24 hours.
+              Send us measurements, photos, or just describe the opening — we&apos;ll come measure if needed. We respond within 24 hours.
             </p>
             <div className="mt-6">
               <Button asChild variant="ghost" className="text-orange-400 hover:text-orange-300 text-base">
@@ -433,7 +433,7 @@ export default function CustomGateFabricationPage() {
             Got a Gate Problem? Let&apos;s Solve It.
           </h2>
           <p className="mt-3 text-orange-100 text-lg">
-            New build, repair, or hardware swap. Quote within 24 hours. Local install across metro Atlanta.
+            New build, repair, or hardware swap. We respond within 24 hours. Local install across metro Atlanta.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8">

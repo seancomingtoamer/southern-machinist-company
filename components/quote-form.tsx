@@ -98,7 +98,7 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
         </div>
         <h3 className="font-heading text-2xl font-bold text-white mb-2">Quote Request Received</h3>
         <p className="text-steel-300 max-w-md mx-auto">
-          We&apos;ve got your request. Our team will review your specs and get back to you within 24 hours with a detailed quote.
+          We&apos;ve got your request. We&apos;ll reach out within 24 hours to go over your specs, then follow up with a detailed quote.
         </p>
       </div>
     )

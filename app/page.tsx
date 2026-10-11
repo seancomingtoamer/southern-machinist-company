@@ -62,7 +62,7 @@ const trustStats = [
   { value: "30+", label: "Years of Experience", icon: Clock },
   { value: "±0.001\"", label: "Precision Tolerance", icon: Target },
   { value: "100%", label: "Quality Inspected", icon: Award },
-  { value: "24hr", label: "Quote Turnaround", icon: Gauge },
+  { value: "24hr", label: "First Response", icon: Gauge },
 ]
 
 const equipmentImages = [
@@ -410,7 +410,7 @@ export default function HomePage() {
             Ready to Get Your Parts Made?
           </h2>
           <p className="mt-3 text-orange-100 text-lg">
-            From blueprint to finished part. We respond to every quote within 24 hours.
+            From blueprint to finished part. We respond to every request within 24 hours.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8">

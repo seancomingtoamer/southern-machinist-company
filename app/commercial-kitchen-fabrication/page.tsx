@@ -89,7 +89,7 @@ const trustStats = [
   { value: "30+", label: "Years Fabricating", icon: Clock },
   { value: "Food-Safe", label: "Stainless Welds", icon: Target },
   { value: "Custom", label: "To Your Line", icon: Award },
-  { value: "24hr", label: "Quote Turnaround", icon: Gauge },
+  { value: "24hr", label: "First Response", icon: Gauge },
 ]
 
 const industries = [
@@ -112,7 +112,7 @@ const processSteps = [
   {
     step: "02",
     title: "Spec & Quote",
-    desc: "Detailed quote with materials, gauge, dimensions, finish, and timeline — usually back to you within 24 hours.",
+    desc: "We respond within 24 hours, then send a detailed quote with materials, gauge, dimensions, finish, and timeline once the details are confirmed.",
   },
   {
     step: "03",
@@ -409,7 +409,7 @@ export default function CommercialKitchenFabricationPage() {
             Need a Table That Actually Fits?
           </h2>
           <p className="mt-3 text-orange-100 text-lg">
-            Quote within 24 hours. Local delivery across metro Atlanta.
+            We respond within 24 hours. Local delivery across metro Atlanta.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8">

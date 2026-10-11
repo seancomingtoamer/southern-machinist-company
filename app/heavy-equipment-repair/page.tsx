@@ -86,7 +86,7 @@ const supportingCapabilities = [
 const trustStats = [
   { value: "30+", label: "Years on Big Iron", icon: Clock },
   { value: "±0.001\"", label: "Bore Tolerance", icon: Target },
-  { value: "24hr", label: "Quote Turnaround", icon: Gauge },
+  { value: "24hr", label: "First Response", icon: Gauge },
   { value: "5-Day", label: "Turnaround", icon: Award },
 ]
 
@@ -109,7 +109,7 @@ const processSteps = [
   {
     step: "02",
     title: "Assess & Quote",
-    desc: "We measure the damage, scope the repair, and quote the work — usually back to you within 24 hours.",
+    desc: "We respond within 24 hours, measure the damage, scope the repair, and send you a quote for the work.",
   },
   {
     step: "03",
@@ -397,7 +397,7 @@ export default function HeavyEquipmentRepairPage() {
               Get Your <span className="text-orange-500">Quote</span>
             </h2>
             <p className="mt-4 text-steel-400 max-w-xl mx-auto text-lg">
-              Send us photos, measurements, or just describe the damage. Quote back within 24 hours.
+              Send us photos, measurements, or just describe the damage. We respond within 24 hours.
             </p>
             <div className="mt-6">
               <Button asChild variant="ghost" className="text-orange-400 hover:text-orange-300 text-base">
@@ -424,7 +424,7 @@ export default function HeavyEquipmentRepairPage() {
             Got a Busted Bore? Let&apos;s Fix It.
           </h2>
           <p className="mt-3 text-orange-100 text-lg">
-            Quote within 24 hours. Drop the iron at the shop in Lawrenceville, or call and we&apos;ll talk it through.
+            We respond within 24 hours. Drop the iron at the shop in Lawrenceville, or call and we&apos;ll talk it through.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8">

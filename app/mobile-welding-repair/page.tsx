@@ -86,7 +86,7 @@ const trustStats = [
   { value: "30+", label: "Years Welding", icon: Clock },
   { value: "Mobile", label: "Metro Atlanta", icon: Truck },
   { value: "Same-Week", label: "Most Calls", icon: Award },
-  { value: "24hr", label: "Quote Turnaround", icon: Gauge },
+  { value: "24hr", label: "First Response", icon: Gauge },
 ]
 
 const industries = [
@@ -109,7 +109,7 @@ const processSteps = [
   {
     step: "02",
     title: "Quote & Schedule",
-    desc: "Quote back within 24 hours with travel + welding time. Most jobs scheduled within the week.",
+    desc: "We respond within 24 hours, then quote travel + welding time. Most jobs scheduled within the week.",
   },
   {
     step: "03",
@@ -379,7 +379,7 @@ export default function MobileWeldingRepairPage() {
               Get Your <span className="text-orange-500">Quote</span>
             </h2>
             <p className="mt-4 text-steel-400 max-w-xl mx-auto text-lg">
-              Send photos, location, and a quick description of what broke. Quote back within 24 hours.
+              Send photos, location, and a quick description of what broke. We respond within 24 hours.
             </p>
             <div className="mt-6">
               <Button asChild variant="ghost" className="text-orange-400 hover:text-orange-300 text-base">
@@ -406,7 +406,7 @@ export default function MobileWeldingRepairPage() {
             Got Broken Metal? We&apos;ll Come to You.
           </h2>
           <p className="mt-3 text-orange-100 text-lg">
-            Quote within 24 hours. Mobile across metro Atlanta from Lawrenceville.
+            We respond within 24 hours. Mobile across metro Atlanta from Lawrenceville.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8">
