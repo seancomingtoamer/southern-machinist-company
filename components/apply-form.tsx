@@ -1,12 +1,14 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { UserPlus, Loader2, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
+import { HoneypotField } from "@/components/honeypot-field"
+import { HONEYPOT_NAME, looksLikeSpam } from "@/lib/spam"
 import { track } from "@/lib/track"
 
 const WEBHOOK_URL = "https://seanpro.app.n8n.cloud/webhook/smc-application"
@@ -29,12 +31,18 @@ export function ApplyForm() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const { toast } = useToast()
+  const startedAt = useRef(Date.now())
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
 
     const formData = new FormData(e.currentTarget)
+    if (looksLikeSpam({ honeypot: formData.get(HONEYPOT_NAME), startedAt: startedAt.current, freeText: [formData.get("why_interested"), formData.get("name")] })) {
+      setSubmitted(true)
+      setLoading(false)
+      return
+    }
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
@@ -84,7 +92,8 @@ export function ApplyForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="relative space-y-5">
+      <HoneypotField />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-semibold text-steel-200 mb-1.5">Full Name *</label>
