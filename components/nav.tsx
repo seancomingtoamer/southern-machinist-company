@@ -2,10 +2,16 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { Menu, X, Wrench, Phone } from "lucide-react"
+import { Menu, X, Wrench, Phone, ChevronDown, Cog } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { specialties } from "@/lib/specialties"
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/contact"
+
+// Core machine-shop page first, then the specialties
+const serviceLinks = [
+  { key: "services", href: "/services", label: "Machining Services", icon: Cog },
+  ...specialties.map((s) => ({ key: s.slug, href: s.href, label: s.shortTitle, icon: s.icon })),
+]
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -36,15 +42,31 @@ export function Nav() {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
-            {specialties.map((s) => (
-              <Link
-                key={s.slug}
-                href={s.href}
-                className="font-heading text-sm font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 transition-colors whitespace-nowrap"
+            {/* Services dropdown: opens on hover, and on keyboard focus */}
+            <div className="relative group">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className="flex items-center gap-1 font-heading text-sm font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 group-focus-within:text-orange-400 transition-colors whitespace-nowrap"
               >
-                {s.navLabel}
-              </Link>
-            ))}
+                Services
+                <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+              </button>
+              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity absolute left-1/2 -translate-x-1/2 top-full pt-4">
+                <div className="w-80 rounded-lg border border-slate-700/50 bg-navy-900 shadow-xl p-2">
+                  {serviceLinks.map((s) => (
+                    <Link
+                      key={s.key}
+                      href={s.href}
+                      className="flex items-center gap-3 rounded-md px-3 py-2.5 text-steel-300 hover:bg-orange-500/10 hover:text-orange-400 focus:bg-orange-500/10 focus:text-orange-400 focus:outline-none transition-colors"
+                    >
+                      <s.icon className="w-5 h-5 shrink-0 text-orange-400" />
+                      <span className="font-heading text-sm font-semibold uppercase tracking-wider">{s.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -91,16 +113,16 @@ export function Nav() {
           <div className="lg:hidden pb-4 border-t border-slate-700/50">
             <div className="flex flex-col gap-1 pt-4">
               <div className="px-2 pb-1 text-xs font-bold uppercase tracking-[0.2em] text-orange-400">
-                Specialties
+                Services
               </div>
-              {specialties.map((s) => (
+              {serviceLinks.map((s) => (
                 <Link
-                  key={s.slug}
+                  key={s.key}
                   href={s.href}
                   onClick={() => setOpen(false)}
                   className="font-heading text-base font-semibold uppercase tracking-wider text-steel-300 hover:text-orange-400 transition-colors py-2 px-2"
                 >
-                  {s.navLabel}
+                  {s.label}
                 </Link>
               ))}
               <div className="h-px bg-slate-700/50 my-2" />
