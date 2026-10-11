@@ -1,4 +1,4 @@
-import { Anchor, Utensils, Fence, Flame, type LucideIcon } from "lucide-react"
+import { Anchor, Utensils, Fence, Flame, Lightbulb, type LucideIcon } from "lucide-react"
 
 export interface Specialty {
   slug: string
@@ -50,6 +50,16 @@ export const specialties: Specialty[] = [
     blurb:
       "On-site welding and metal repair across metro Atlanta. We roll the truck and trailer to your site for broken trailers, equipment, gates, and structural work.",
     icon: Flame,
+  },
+  {
+    slug: "prototype-small-batch-manufacturing",
+    href: "/prototype-small-batch-manufacturing",
+    title: "Prototype & Small-Batch Manufacturing",
+    shortTitle: "Prototypes & Small Batch",
+    navLabel: "Prototypes",
+    blurb:
+      "From a sketch or CAD file to machined parts in your hand. Prototypes and short production runs for inventors, startups, and engineers, with an NDA before you share files.",
+    icon: Lightbulb,
   },
 ]
 

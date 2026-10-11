@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Barlow, Barlow_Condensed } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from "@/components/ui/toaster"
+import TrackClicks from "@/components/track-clicks"
 import './globals.css'
 
 const barlow = Barlow({
@@ -61,8 +62,13 @@ gtag('config', 'G-E3FDG2QFJQ');`
               "@type": "LocalBusiness",
               "name": "Southern Machinist Company",
               "description": "Precision CNC machining with 30+ years of expertise. Custom parts, prototypes, and production runs.",
+              "url": "https://southernmachinistcompany.com",
+              "telephone": "+1-404-590-4534",
               "address": {
                 "@type": "PostalAddress",
+                "streetAddress": "743 Winer Industrial Way",
+                "addressLocality": "Lawrenceville",
+                "postalCode": "30046",
                 "addressRegion": "GA",
                 "addressCountry": "US"
               },
@@ -77,6 +83,7 @@ gtag('config', 'G-E3FDG2QFJQ');`
         {children}
         <Toaster />
         <Analytics />
+        <TrackClicks />
       </body>
     </html>
   )

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
+import { adSource, track } from "@/lib/track"
 
 const WEBHOOK_URL = "https://seanpro.app.n8n.cloud/webhook/smc-quote-request"
 
@@ -60,6 +61,8 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
         calculator_timeline: calculatorData.timeline,
         calculator_estimate: calculatorData.estimatedRange,
       }),
+      source_page: window.location.pathname,
+      ...adSource(),
     }
 
     try {
@@ -70,6 +73,7 @@ export function QuoteForm({ calculatorData }: QuoteFormProps) {
       })
 
       if (res.ok) {
+        track("generate_lead", { form: "quote_form", job_type: String(data.job_type ?? "") })
         setSubmitted(true)
         toast({ title: "Quote Request Sent", description: "We'll get back to you within 24 hours." })
       } else {

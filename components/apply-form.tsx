@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
+import { track } from "@/lib/track"
 
 const WEBHOOK_URL = "https://seanpro.app.n8n.cloud/webhook/smc-application"
 
@@ -51,6 +52,7 @@ export function ApplyForm() {
       })
 
       if (res.ok) {
+        track("apprentice_application")
         setSubmitted(true)
         toast({ title: "Application Submitted", description: "We'll review it and be in touch soon." })
       } else {

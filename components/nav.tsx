@@ -35,7 +35,7 @@ export function Nav() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             {specialties.map((s) => (
               <Link
                 key={s.slug}
@@ -56,10 +56,11 @@ export function Nav() {
             ))}
             <a
               href={PHONE_HREF}
-              className="flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wider text-orange-400 hover:text-orange-300 transition-colors"
+              aria-label={`Call ${PHONE_DISPLAY}`}
+              className="flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wider text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap"
             >
               <Phone className="w-4 h-4" />
-              {PHONE_DISPLAY}
+              <span className="hidden xl:inline">{PHONE_DISPLAY}</span>
             </a>
             <Button asChild size="lg">
               <Link href="/#quote">Get a Quote</Link>

@@ -5,6 +5,7 @@ import { Calculator, ChevronRight, ChevronLeft, ArrowRight, Loader2 } from "luci
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
+import { adSource, track } from "@/lib/track"
 
 const WEBHOOK_URL = "https://seanpro.app.n8n.cloud/webhook/smc-quote-request"
 
@@ -115,9 +116,12 @@ export function QuoteCalculator() {
           priority: state.timeline === "urgent" ? "Urgent" : state.timeline === "rush" ? "High" : "Normal",
           drawing_notes: `Estimated range: $${estimate.low} - $${estimate.high}. Complexity: ${state.complexity}. Tolerance: ${state.tolerance}. Timeline: ${state.timeline}.`,
           source: "calculator",
+          source_page: window.location.pathname,
+          ...adSource(),
         }),
       })
       if (res.ok) {
+        track("generate_lead", { form: "calculator" })
         setSubmitted(true)
         toast({ title: "Estimate Sent!", description: "Check your email for next steps." })
       } else {
