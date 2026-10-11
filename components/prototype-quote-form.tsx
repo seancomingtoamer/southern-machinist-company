@@ -56,7 +56,7 @@ export function PrototypeQuoteForm() {
       if (res.ok) {
         track("generate_lead", { form: "prototype_quote", project_type: String(formData.get("project_type")), nda_requested: nda })
         setSubmitted(true)
-        toast({ title: "Request Sent", description: "We'll get back to you within 24 hours." })
+        toast({ title: "Request Sent", description: "We'll reach out within 24 hours." })
       } else {
         throw new Error("Failed to submit")
       }
@@ -79,7 +79,7 @@ export function PrototypeQuoteForm() {
         </div>
         <h3 className="font-heading text-2xl font-bold text-white mb-2">Got It. We&apos;re On It.</h3>
         <p className="text-steel-300 max-w-md mx-auto">
-          We&apos;ll get back to you within 24 hours. If you asked for an NDA, it comes first, before you send any files.
+          We&apos;ll reach out within 24 hours to go over your project. Your detailed quote follows once we&apos;ve confirmed the specs, material, and finishing. If you asked for an NDA, it comes first, before you send any files.
           Need us sooner? Call <a href={PHONE_HREF} className="text-orange-400 font-bold">{PHONE_DISPLAY}</a>.
         </p>
       </div>

@@ -78,7 +78,7 @@ const builders = [
 
 const steps = [
   { num: "01", title: "Tell Us the Idea", desc: "Fill out the form or call. Ask for our NDA and it comes first, before you send a single file." },
-  { num: "02", title: "Review & Quote", desc: "We go over the design, flag anything that drives cost, and send a clear quote, usually within 24 hours." },
+  { num: "02", title: "Review & Quote", desc: "We reach out within 24 hours, go over the design, and line up material and finishing. Once the details are confirmed, you get a clear, accurate quote." },
   { num: "03", title: "First Article", desc: "We make the first part or set, inspect it, and you get it in hand to test." },
   { num: "04", title: "Refine & Run", desc: "Adjust what needs adjusting, then we make your small batch, from a handful to a few hundred." },
 ]
@@ -160,7 +160,7 @@ export default function PrototypeSmallBatchPage() {
             {[
               { value: "NDA", label: "Before Files" },
               { value: "1-500", label: "Parts" },
-              { value: "24hr", label: "Quote Turnaround" },
+              { value: "24hr", label: "First Response" },
               { value: "30+", label: "Years Experience" },
             ].map((stat) => (
               <div key={stat.label}>
@@ -267,7 +267,7 @@ export default function PrototypeSmallBatchPage() {
               Start Your <span className="text-orange-500">Prototype</span>
             </h2>
             <p className="mt-4 text-steel-400 max-w-xl mx-auto text-lg">
-              Tell us what you&apos;re building. We respond within 24 hours.
+              Tell us what you&apos;re building. We&apos;ll reach out within 24 hours to talk it through.
             </p>
             <div className="mt-6">
               <Button asChild variant="ghost" className="text-orange-400 hover:text-orange-300 text-base">
@@ -294,7 +294,7 @@ export default function PrototypeSmallBatchPage() {
             Got an Idea? Let&apos;s Build It.
           </h2>
           <p className="mt-3 text-orange-100 text-lg">
-            Quote within 24 hours. Send a sketch, a CAD file, or just call and talk it through.
+            We reach out within 24 hours. Send a sketch, a CAD file, or just call and talk it through.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8">
