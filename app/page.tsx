@@ -30,31 +30,43 @@ const services = [
     icon: Cog,
     title: "CNC Milling",
     desc: "3-axis and multi-axis milling for complex geometries. Aluminum, steel, stainless, brass, and exotic alloys.",
+    image: "/shop/ai-black-anodized-parts.jpg",
+    alt: "Black anodized machined aluminum parts",
   },
   {
     icon: Wrench,
     title: "CNC Turning",
     desc: "Precision lathe work for shafts, fittings, bushings, and round parts. Tight tolerances, consistent results.",
+    image: "/shop/ai-turned-shafts.jpg",
+    alt: "Turned steel shafts next to a lathe chuck",
   },
   {
     icon: Hammer,
     title: "Manual Machining",
     desc: "Old-school craftsmanship for one-offs, repairs, and jobs that need a machinist's touch — not just a program.",
+    image: "/shop/IMG_0236.jpg",
+    alt: "Bridgeport manual mill in the shop",
   },
   {
     icon: Factory,
     title: "Prototypes",
     desc: "From concept to first article fast. We work from your drawings, CAD files, or even a sketch on a napkin.",
+    image: "/shop/ai-prototype-on-bench.jpg",
+    alt: "Machined aluminum prototype part with its drawing",
   },
   {
     icon: Gauge,
     title: "Production Runs",
     desc: "Short and medium production runs with consistent quality. Volume pricing on 10+ parts.",
+    image: "/shop/ai-batch-brackets.jpg",
+    alt: "A batch of machined aluminum brackets",
   },
   {
     icon: ShieldCheck,
     title: "Quality Inspection",
     desc: "Every part measured and verified before it ships. Precision to ±0.001\" when you need it.",
+    image: "/shop/dial-indicator.jpg",
+    alt: "Dial indicator checking a part in a lathe chuck",
   },
 ]
 
@@ -96,8 +108,17 @@ export default function HomePage() {
 
       {/* ===== HERO ===== */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-28 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900" />
+        {/* Background photo */}
+        <Image
+          src="/shop/ai-hero-cnc-cutting.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        {/* Background gradient (darkens the photo so the text stays readable) */}
+        <div className="absolute inset-0 bg-gradient-to-br from-navy-900/95 via-navy-900/75 to-navy-900/95" />
         {/* Steel texture */}
         <div className="absolute inset-0 steel-texture opacity-50" />
         {/* Orange accent glow */}
@@ -171,17 +192,28 @@ export default function HomePage() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="group p-6 rounded-xl border border-slate-700 bg-slate-800/30 hover:border-orange-500/50 hover:bg-slate-800/60 transition-all duration-300"
+                className="group overflow-hidden rounded-xl border border-slate-700 bg-slate-800/30 hover:border-orange-500/50 hover:bg-slate-800/60 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-orange-400" />
+                <div className="relative aspect-[3/2] overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                 </div>
-                <h3 className="font-heading text-xl font-bold text-white uppercase tracking-wide mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-steel-400 text-sm leading-relaxed">
-                  {service.desc}
-                </p>
+                <div className="p-6">
+                  <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
+                    <service.icon className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="font-heading text-xl font-bold text-white uppercase tracking-wide mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-steel-400 text-sm leading-relaxed">
+                    {service.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
